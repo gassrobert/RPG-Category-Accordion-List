@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name: Sidebar Tabs for Link Index
+ * Plugin Name: Category Accordion List
  * Plugin URI: http://robert-paul-gass-portfolio.co.nf/?p=194
- * Description: Displays Categories in n Accordion Format
+ * Description: Displays Categories in an Accordion Format
  * Author: Robert Paul Gass
  * Author URI: http://robert-paul-gass-portfolio.co.nf/
  * Version: 1.0.0
@@ -26,6 +26,51 @@ add_action( 'wp_enqueue_scripts', 'load_rpg_category_accordion_list_styles_and_s
 
 // The Widget Class
 class RPG_Category_Accordion_List extends WP_Widget {
+
+	// Run the constructor  and set the values for the Available Widgets area
+	function __construct()
+	{
+		$params = array(
+			'description' => 'Displays Categories in an Accordion List Structure',
+			'name' => 'Category Accordion List',
+		);
+
+		parent::__construct('CategoryAccordionList', '', $params);
+	}
+
+	// Initialize the form display in the admin widget area
+	public function form($instance)
+	{
+		// Extract the instance for the form
+		extract($instance);
+
+		?>
+		<p>
+		<b>Instructions:</b> Enter the title and choose whether to display the number of posts for each category.
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id('RPGCatAccordionHeading'); ?>">Title: </label>
+			<input class="widefat" id="<?php echo $this->get_field_id('RPGCatAccordionHeading'); ?>" name="<?php echo $this->get_field_name('RPGCatAccordionHeading'); ?>" value="<?php if( isset($RPGCatAccordionHeading) ) echo esc_attr($RPGCatAccordionHeading); ?>" />
+		</p>
+
+		<p><input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id('RPGCatAccordionShowPostNum'); ?>" name="<?php echo $this->get_field_name('RPGCatAccordionShowPostNum'); ?>" <?php echo (!empty($RPGCatAccordionShowPostNum)) ? 'checked' : ''; ?> />
+		<label for="<?php echo $this->get_field_id('RPGCatAccordionShowPostNum'); ?>">Show number of posts</label>
+		</p>
+		<?php  
+
+
+	}
+
+	// This is the Widget Form displayed in the sidebar to the user
+	public function widget($args, $instance)
+	{
+			// extract the arguments and the instance
+			extract($args);
+			extract($instance);	
+
+
+	}
+
 
 }
 add_action('widgets_init', 'rpg_register_category_accordion_list');
