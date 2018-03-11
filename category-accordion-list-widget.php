@@ -68,7 +68,19 @@ class RPG_Category_Accordion_List extends WP_Widget {
 			extract($args);
 			extract($instance);	
 
+			$RPGCatAccordionHeading = apply_filters('cat-acc-widget-heading', $RPGCatAccordionHeading);
+			$RPGCatAccordionShowPostNum = apply_filters('cat-acc-widget-show-posts', $RPGCatAccordionShowPostNum);
 
+
+			if( empty($RPGCatAccordionHeading) ) $RPGCatAccordionHeading = 'Categories';
+			if( empty($RPGCatAccordionShowPostNum) ) $RPGCatAccordionShowPostNum = 'Show No Posts';
+
+		echo $before_widget;
+			echo $before_title . $RPGCatAccordionHeading . $after_title;
+
+			echo $RPGCatAccordionShowPostNum;
+
+		echo $after_widget;
 	}
 
 
