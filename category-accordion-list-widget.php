@@ -64,21 +64,50 @@ class RPG_Category_Accordion_List extends WP_Widget {
 	// This is the Widget Form displayed in the sidebar to the user
 	public function widget($args, $instance)
 	{
-			// extract the arguments and the instance
-			extract($args);
-			extract($instance);	
+		// extract the arguments and the instance
+		extract($args);
+		extract($instance);	
 
-			$RPGCatAccordionHeading = apply_filters('cat-acc-widget-heading', $RPGCatAccordionHeading);
-			$RPGCatAccordionShowPostNum = apply_filters('cat-acc-widget-show-posts', $RPGCatAccordionShowPostNum);
+		$RPGCatAccordionHeading = apply_filters('cat-acc-widget-heading', $RPGCatAccordionHeading);
+		$RPGCatAccordionShowPostNum = apply_filters('cat-acc-widget-show-posts', $RPGCatAccordionShowPostNum);
 
 
-			if( empty($RPGCatAccordionHeading) ) $RPGCatAccordionHeading = 'Categories';
-			if( empty($RPGCatAccordionShowPostNum) ) $RPGCatAccordionShowPostNum = 'Show No Posts';
+		if( empty($RPGCatAccordionHeading) ) $RPGCatAccordionHeading = 'Categories';
 
 		echo $before_widget;
-			echo $before_title . $RPGCatAccordionHeading . $after_title;
+		echo $before_title . $RPGCatAccordionHeading . $after_title;
 
-			echo $RPGCatAccordionShowPostNum;
+			?>
+			<ul class="blocks">
+			<?php $parents = get_categories(array('parent' => 0, 'hide_empty' => 1));
+			    if(!empty($parents)){
+			        foreach($parents as $parent){
+			        	$current_category = get_category($parent->term_id);
+
+			?>
+			        <li>
+			            <h4><a href="<?php echo get_category_link( $parent->term_id ); ?>"><?php echo $parent->name; ?><?php echo (!empty($RPGCatAccordionShowPostNum)) ? (" (" . $parent->count . " posts)" ) : ''; ?></a></h4>
+			            <ul class="models">
+			            <?php 
+			            	$parent_id = $parent->term_id;
+							$args = array('child_of' => $parent_id);
+							$sub_categories = get_categories( $args );
+							foreach($sub_categories as $sub_category) { 
+			            ?>
+							<li><a href="<?php // echo $parent->category_nicename; ?><?php echo get_category_link( $sub_category->term_id ); ?>"><?php echo $sub_category->name; ?><?php echo (!empty($RPGCatAccordionShowPostNum)) ? (" (" . $sub_category->count . " posts)" ) : ''; ?></a></li>
+						<?php
+							}
+						?>
+			            </ul>
+			        </li>
+			<?php
+			        }
+			    } else { 
+			?>
+			    <li>No Categories</li>
+			<?php } ?>
+			</ul>
+			<?php
 
 		echo $after_widget;
 	}
