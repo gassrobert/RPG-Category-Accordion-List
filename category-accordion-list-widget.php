@@ -76,25 +76,25 @@ class RPG_Category_Accordion_List extends WP_Widget {
 
 		echo $before_widget;
 		echo $before_title . $RPGCatAccordionHeading . $after_title;
-
 			?>
-			<ul class="blocks">
+		<div class="rpgCatAccordion">
+			<ul>
 			<?php $parents = get_categories(array('parent' => 0, 'hide_empty' => 1));
 			    if(!empty($parents)){
 			        foreach($parents as $parent){
 			        	$current_category = get_category($parent->term_id);
 
 			?>
-			        <li>
-			            <h4><a href="<?php echo get_category_link( $parent->term_id ); ?>"><?php echo $parent->name; ?><?php echo (!empty($RPGCatAccordionShowPostNum)) ? (" (" . $parent->count . " posts)" ) : ''; ?></a></h4>
-			            <ul class="models">
+			        <li class="rpgAccordionHeading">
+			            <h4><a class="rpgAccordionHeadingLink" href="<?php echo get_category_link( $parent->term_id ); ?>"><?php echo $parent->name; ?><?php echo (!empty($RPGCatAccordionShowPostNum)) ? (" (" . $parent->count . ")" ) : ''; ?></a></h4>
+			            <ul class="rpgAccordionsubmenu">
 			            <?php 
 			            	$parent_id = $parent->term_id;
 							$args = array('child_of' => $parent_id);
 							$sub_categories = get_categories( $args );
 							foreach($sub_categories as $sub_category) { 
 			            ?>
-							<li><a href="<?php // echo $parent->category_nicename; ?><?php echo get_category_link( $sub_category->term_id ); ?>"><?php echo $sub_category->name; ?><?php echo (!empty($RPGCatAccordionShowPostNum)) ? (" (" . $sub_category->count . " posts)" ) : ''; ?></a></li>
+							<li><a href="<?php echo get_category_link( $sub_category->term_id ); ?>"><?php echo $sub_category->name; ?><?php echo (!empty($RPGCatAccordionShowPostNum)) ? (" (" . $sub_category->count . ")" ) : ''; ?></a></li>
 						<?php
 							}
 						?>
@@ -107,8 +107,8 @@ class RPG_Category_Accordion_List extends WP_Widget {
 			    <li>No Categories</li>
 			<?php } ?>
 			</ul>
+		</div>
 			<?php
-
 		echo $after_widget;
 	}
 
