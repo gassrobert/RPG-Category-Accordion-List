@@ -88,7 +88,30 @@ class RPG_Category_Accordion_List extends WP_Widget {
 			?>
 			        <li class="rpgAccordionHeading" id="<?php echo 'AccID' . $AccID; ?>">
 			            <h3><a class="rpgAccordionHeadingLink" href="<?php echo get_category_link( $parent->term_id ); ?>"><?php echo esc_html($parent->name); ?><?php echo (!empty($RPGCatAccordionShowPostNum)) ? (" (" . $parent->count . ")" ) : ''; ?></a></h3>
-			            <div class="rpgAccordionSubmenu" id="<?php echo 'subMenu' . $AccID; ?>">
+			            <?php
+			            	if (is_category()) {
+			            		// echo "A category is selected.";
+			            		$term = get_queried_object();
+								// echo $term->slug;
+								// echo $term->category_parent;
+								$category_parent_id = $term->category_parent;
+								if ( $category_parent_id != 0 ) {
+								    $category_parent = get_term( $category_parent_id, 'category' );
+								    $css_slug = $category_parent->slug;
+								   // echo $css_slug;
+								} else {
+								    $css_slug = $category[0]->slug;
+								}
+								// echo $parent->slug;
+								$currently_selected_slug = $css_slug;
+								$current_slug_in_list = $parent->slug;
+								/* echo $currently_selected_slug;
+								echo "<br />";
+								echo $current_slug_in_list; */
+			            	}
+
+			            ?>
+			            <div class="rpgAccordionSubmenu" id="<?php echo 'subMenu' . $AccID; ?>" <?php if (is_category() && $currently_selected_slug == $current_slug_in_list) { ?> style="display: block;" <?php } else { ?> style="display: none;" <?php } ?> >
 				            <ul>
 				            <?php 
 				            	$parent_id = $parent->term_id;

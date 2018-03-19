@@ -22,10 +22,8 @@
       cursor: pointer; }
       .rpgCatAccordion ul .rpgAccordionHeading:hover {
         background: #DCDCDC; }
-      .rpgCatAccordion ul .rpgAccordionHeading .rpgAccordionSubmenu {
-        display: none; }
-        .rpgCatAccordion ul .rpgAccordionHeading .rpgAccordionSubmenu .rpgAccordion {
-          padding-right: 5px;
-          padding-left: 5px; }
+      .rpgCatAccordion ul .rpgAccordionHeading .rpgAccordionSubmenu .rpgAccordion {
+        padding-right: 5px;
+        padding-left: 5px; }
 
 /*# sourceMappingURL=style.css.map */
