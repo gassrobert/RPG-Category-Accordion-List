@@ -6,7 +6,7 @@
 		margin: 0;
 		padding-left: 0;
 		li {
-			h4 {
+			h3 {
 				margin: 0;
 
 				a {
@@ -25,7 +25,7 @@
 			font-weight:bold; 
 			border: 1px solid #ccc;
 			display: block; 
-			padding: 5px; 
+			padding: 5px 10px; 
 			margin:0;
 			color: #0073aa;
 			cursor: pointer;
@@ -34,13 +34,14 @@
 				background: #DCDCDC;
 			}
 
-			.rpgAccordionsubmenu {
+			.rpgAccordionSubmenu {
 				display: none;
+
 				.rpgAccordion {
-					border: 1px solid #ccc;
 					padding-right: 5px;
 					padding-left: 5px;
 				}
+
 			}		
 		}
 

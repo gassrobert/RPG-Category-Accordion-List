@@ -81,26 +81,30 @@ class RPG_Category_Accordion_List extends WP_Widget {
 			<ul>
 			<?php $parents = get_categories(array('parent' => 0, 'hide_empty' => 1));
 			    if(!empty($parents)){
+			    	$AccID = 0;
 			        foreach($parents as $parent){
 			        	$current_category = get_category($parent->term_id);
 
 			?>
-			        <li class="rpgAccordionHeading">
-			            <h4><a class="rpgAccordionHeadingLink" href="<?php echo get_category_link( $parent->term_id ); ?>"><?php echo esc_html($parent->name); ?><?php echo (!empty($RPGCatAccordionShowPostNum)) ? (" (" . $parent->count . ")" ) : ''; ?></a></h4>
-			            <ul class="rpgAccordionsubmenu">
-			            <?php 
-			            	$parent_id = $parent->term_id;
-							$args = array('child_of' => $parent_id);
-							$sub_categories = get_categories( $args );
-							foreach($sub_categories as $sub_category) { 
-			            ?>
-							<li><a href="<?php echo get_category_link( $sub_category->term_id ); ?>"><?php echo esc_html($sub_category->name); ?><?php echo (!empty($RPGCatAccordionShowPostNum)) ? (" (" . $sub_category->count . ")" ) : ''; ?></a></li>
-						<?php
-							}
-						?>
-			            </ul>
+			        <li class="rpgAccordionHeading" id="<?php echo 'AccID' . $AccID; ?>">
+			            <h3><a class="rpgAccordionHeadingLink" href="<?php echo get_category_link( $parent->term_id ); ?>"><?php echo esc_html($parent->name); ?><?php echo (!empty($RPGCatAccordionShowPostNum)) ? (" (" . $parent->count . ")" ) : ''; ?></a></h3>
+			            <div class="rpgAccordionSubmenu" id="<?php echo 'subMenu' . $AccID; ?>">
+				            <ul>
+				            <?php 
+				            	$parent_id = $parent->term_id;
+								$args = array('child_of' => $parent_id);
+								$sub_categories = get_categories( $args );
+								foreach($sub_categories as $sub_category) { 
+				            ?>
+								<a href="<?php echo get_category_link( $sub_category->term_id ); ?>"><li class="rpgAccordion"><?php echo esc_html($sub_category->name); ?><?php echo (!empty($RPGCatAccordionShowPostNum)) ? (" (" . $sub_category->count . ")" ) : ''; ?></li></a>
+							<?php
+								}
+							?>
+				            </ul>
+			            </div>
 			        </li>
 			<?php
+					$AccID++;
 			        }
 			    } else { 
 			?>
