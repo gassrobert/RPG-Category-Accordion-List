@@ -5,8 +5,8 @@ jQuery(document).ready(function($) {
 		currentID = clickedID.replace("AccID", "");
 		var SubMenuID = 'subMenu'  + currentID;
 		var isHidden = document.getElementById(SubMenuID).style.display == "none"; 
-		if (isHidden) {
+		// if (isHidden) {
 			$( "#"+SubMenuID ).slideToggle("fast");
-		}	
+		// }	
 	}); // End of $(document).on('click','.rpgAccordionHeading', function(){ 
 }); // End of jQuery(document).ready(function($) {
