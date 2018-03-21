@@ -91,19 +91,25 @@ class RPG_Category_Accordion_List extends WP_Widget {
 			            <?php
 			            	if (is_category()) {
 			            		$term = get_queried_object();
-								$category_parent_id = $term->category_parent;
-								if ( $category_parent_id != 0 ) {
-								    $category_parent = get_term( $category_parent_id, 'category' );
-								    $css_slug = $category_parent->slug;
-								} else {
-								    $css_slug = $category[0]->slug;
-								}
-								$currently_selected_slug = $css_slug;
-								$current_slug_in_list = $parent->slug;
+
+			            		if (!$term->category_parent) {
+			            			$category_slug = $term->slug;
+			            			$current_slug_in_list = $parent->slug;
+			            		} else {
+									$category_parent_id = $term->category_parent;
+									if ( $category_parent_id != 0 ) {
+									    $category_parent = get_term( $category_parent_id, 'category' );
+									    $css_slug = $category_parent->slug;
+									} else {
+									    $css_slug = $category[0]->slug;
+									}
+									$currently_selected_slug = $css_slug;
+									$current_slug_in_list = $parent->slug;
+			            		}
 			            	}
 
 			            ?>
-			            <div class="rpgAccordionSubmenu" id="<?php echo 'subMenu' . $AccID; ?>" <?php if (is_category() && $currently_selected_slug == $current_slug_in_list) { ?> style="display: block;" <?php } else { ?> style="display: none;" <?php } ?> >
+			            <div class="rpgAccordionSubmenu" id="<?php echo 'subMenu' . $AccID; ?>" <?php if ((is_category() && $currently_selected_slug == $current_slug_in_list) || (is_category() && $category_slug == $current_slug_in_list)) { ?> style="display: block;" <?php } else { ?> style="display: none;" <?php } ?> >
 				            <ul>
 				            <?php 
 				            	$parent_id = $parent->term_id;
