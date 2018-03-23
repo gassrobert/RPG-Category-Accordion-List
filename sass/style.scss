@@ -37,10 +37,12 @@
 			
 		.rpgAccordionSubmenu {
 
-			.rpgAccordion {
+			ul {
+				padding: 5px;
 				background: #DCDCDC;
-				padding-right: 5px;
-				padding-left: 5px;
+			}
+
+			.rpgAccordion {
 				text-align: center; 
 			}
 
