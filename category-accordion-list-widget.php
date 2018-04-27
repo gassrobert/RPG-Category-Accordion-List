@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: Category Accordion List
- * Plugin URI: http://robert-paul-gass-portfolio.co.nf/?p=194
+ * Plugin URI: http://robert-paul-gass-portfolio.co.nf/
  * Description: Displays Categories in an Accordion Format
  * Author: Robert Paul Gass
  * Author URI: http://robert-paul-gass-portfolio.co.nf/
